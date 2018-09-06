@@ -120,11 +120,11 @@ class ZdjknsrTablePage:
         except Exception as e:
             raise e
 
-    def nextPsrySBtnObj(self):
+    def nextPsrySBtnObj(self,id):
         # 选审批人员下拉框按钮
         try:
             #elementObj = getElement(self.driver, "xpath", "//span[@id='nextPsry']//span[@class='mini-buttonedit-icon']")
-            elementObj = getElement(self.driver, "css selector", "span#nextPsry>span>span>span>span.mini-buttonedit-icon")
+            elementObj = getElement(self.driver, "css selector", "span#"+id+">span>span>span>span.mini-buttonedit-icon")
 
             return elementObj
         except Exception as e:
@@ -189,7 +189,7 @@ class ZdjknsrTablePage:
     def dbBtnObj(self,pcbh):
         # 审批页面审批按钮
         try:
-            elementObj = getElement(self.driver, "xpath", "//a[contains(@onclick,"+pcbh+") and contains(@onclick,'待办')]")
+            elementObj = getElement(self.driver, "xpath", "//a[contains(@onclick,\'"+pcbh+"\') and contains(@onclick,'待办')]")
             return elementObj
         except Exception as e:
             raise e
@@ -220,9 +220,35 @@ class ZdjknsrTablePage:
             raise e
 
     def spSaveBtnObj(self):
-        # 审批页面保存按钮
+        # 审批页面保存按钮-工商异常名录
         try:
             elementObj = getElement(self.driver, "xpath", "//input[@id='bc']")
+            return elementObj
+        except Exception as e:
+            raise e
+
+
+    def spTjBtnObj(self):
+        # 审批页面提交按钮-稽查定性虚开企业
+        try:
+            elementObj = getElement(self.driver, "xpath", "//input[@id='submit']")
+            return elementObj
+        except Exception as e:
+            raise e
+
+
+    def spDbsxObj(self):
+        # 审批批次页面代办数
+        try:
+            elementObj = getElement(self.driver, "xpath", "//span[@id='DBSX']")
+            return elementObj
+        except Exception as e:
+            raise e
+
+    def spLxObj(self):
+        # 审批页面 批次类型
+        try:
+            elementObj = getElement(self.driver, "xpath", "//input[@id='JKLX']")
             return elementObj
         except Exception as e:
             raise e

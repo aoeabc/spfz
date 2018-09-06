@@ -76,6 +76,15 @@ class ZdjknsrQueryPage:
         except Exception as e:
             raise e
 
+    def xzjklxCbObj(self,lx):
+        # 新增页面监控类型下拉框内容
+        try:
+            elementObj = getElement(self.driver, "xpath", "//td[contains(text(),"+lx+")]")
+            return elementObj
+        except Exception as e:
+            raise e
+
+
     def queryBtnObj(self):
         try:
             elementObj = getElement(self.driver, "xpath", "//input[@type='button']")

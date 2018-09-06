@@ -11,7 +11,7 @@ class ZdjknsrAddAction:
 
 
     @staticmethod
-    def gsycmlAdd(driver,number,spry,reason):
+    def gsycmlAdd(driver,number,spry,reason,lx):
         try:
             querypage=ZdjknsrQueryPage(driver)
             tablepage=ZdjknsrTablePage(driver)
@@ -19,7 +19,9 @@ class ZdjknsrAddAction:
             FrameSwitchAction.pcframeSwitch(driver)
 
             CommonAction.checkbox(driver, "jklx", querypage.jklxObj())
-            querypage.jklxCbObj().click()
+            if not querypage.jklxCbObj().is_selected():
+
+                querypage.jklxCbObj().click()
             querypage.queryBtnObj().click()
 
             b1=PageTableAction.getPcbh(driver)
@@ -27,6 +29,12 @@ class ZdjknsrAddAction:
             tablepage.addBtnObj().click()
 
             FrameSwitchAction.xzframeSwitch(driver)
+
+            if '稽查定性虚开企业' in lx:
+                CommonAction.checkbox(driver, "jklx", querypage.jklxObj())
+                querypage.xzjklxCbObj(lx).click()
+
+
             querypage.queryBtnObj().click()
 
             PageTableAction.nsrSelector(driver,number,reason)

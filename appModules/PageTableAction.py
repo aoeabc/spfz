@@ -7,22 +7,14 @@ class PageTableAction:
     def __init__(self):
         pass
 
-
     @staticmethod
-    def tjPsry(driver,spry):
+    def tjPsry(driver, spry):
         try:
 
-            tablepage=ZdjknsrTablePage(driver)
+            tablepage = ZdjknsrTablePage(driver)
 
             tablepage.tjButtonObj().click()
-            time.sleep(5)
-            CommonAction.checkbox(driver,'nextPsry',tablepage.nextPsrySBtnObj())
-            tablepage.nextPsryObj(spry).click()
-            tablepage.nextPsryBtnObj().click()
-            time.sleep(2)
-            print(tablepage.tjMessageObj().get_attribute('innerText'))
-            tablepage.tjMessageBtnObj().click()
-            time.sleep(3)
+            CommonAction.putPsry(driver,spry,"nextPsry")
 
         except Exception as e:
             print(e)
@@ -77,9 +69,16 @@ class PageTableAction:
             else:
                 tablepage.spBtyBtnObj().click()
             tablepage.spSmObj().send_keys(spsm)
-            tablepage.spSaveBtnObj().click()
-            print(tablepage.tjMessageObj().get_attribute('innerText'))
-            tablepage.tjMessageBtnObj().click()
+
+            if tablepage.spLxObj().get_attribute('value')=='工商异常名录':
+                tablepage.spSaveBtnObj().click()
+                print(tablepage.tjMessageObj().get_attribute('innerText'))
+                tablepage.tjMessageBtnObj().click()
+
+            else:
+                tablepage.spTjBtnObj().click()
+                CommonAction.putPsry(driver,"\'蔡永进\'","nextZsry")
+
 
 
 
