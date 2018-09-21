@@ -11,7 +11,8 @@ class ZdjknsrAddAction:
 
 
     @staticmethod
-    def gsycmlAdd(driver,number,spry,reason,lx):
+    def gsycmlAdd(driver,number='',spry='',reason='',lx=''):
+        '''这是新增批次'''
         try:
             querypage=ZdjknsrQueryPage(driver)
             tablepage=ZdjknsrTablePage(driver)

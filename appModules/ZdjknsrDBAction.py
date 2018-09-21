@@ -10,7 +10,8 @@ class ZdjknsrDbAction:
 
 
     @staticmethod
-    def gsycmlDb(driver,pcbh,spsm,spjg):
+    def gsycmlDb(driver,pcbh='',spsm='',spjg=''):
+        '''这是审批'''
         try:
             tablepage=ZdjknsrTablePage(driver)
 

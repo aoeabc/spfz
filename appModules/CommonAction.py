@@ -2,6 +2,8 @@ from pageObjects.ZdjknsrQueryPage import ZdjknsrQueryPage
 from pageObjects.ZdjknsrTablepage import ZdjknsrTablePage
 import time
 
+
+
 class CommonAction:
 
     @staticmethod
@@ -24,8 +26,9 @@ class CommonAction:
             CommonAction.checkbox(driver, id, tablepage.nextPsrySBtnObj(id))
             tablepage.nextPsryObj(spry).click()
             tablepage.nextPsryBtnObj().click()
-            time.sleep(2)
-            print(tablepage.tjMessageObj().get_attribute('innerText'))
+            time.sleep(3)
+            message=tablepage.tjMessageObj().get_attribute('innerText')
+            assert '保存成功' in message
             tablepage.tjMessageBtnObj().click()
             time.sleep(3)
 

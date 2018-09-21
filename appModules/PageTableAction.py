@@ -61,6 +61,7 @@ class PageTableAction:
 
     @staticmethod
     def spJg(driver,spsm,spjg):
+        # 审批结果，选同意或者不同意；
         try:
             tablepage = ZdjknsrTablePage(driver)
 
@@ -87,3 +88,16 @@ class PageTableAction:
 
             raise e
 
+    @staticmethod
+    def pcXg(driver,xgsm):
+        #批次修改,修改说明只能改解除原因
+        try:
+            tablepage = ZdjknsrTablePage(driver)
+            for ele in tablepage.jcyyXgSeletedObj():
+                ele.click()
+                tablepage.jcyyXgInputObj().sendKeys(xgsm)
+
+
+        except Exception as e:
+
+            raise e

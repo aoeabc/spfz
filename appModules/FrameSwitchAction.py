@@ -35,3 +35,9 @@ class FrameSwitchAction:
         framepage = ZdjknsrFramePage(driver)
         frameSwitch(driver)
         driver.switch_to.frame(framepage.spPageFrameObj())
+
+    @staticmethod
+    def xgframeSwitch(driver):
+        framepage = ZdjknsrFramePage(driver)
+        frameSwitch(driver)
+        driver.switch_to.frame(framepage.xgPageFrameObj())
