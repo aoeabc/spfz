@@ -139,9 +139,7 @@ class ZdjknsrTablePage:
     def nextPsrySBtnObj(self,id):
         # 选审批人员下拉框按钮
         try:
-            #elementObj = getElement(self.driver, "xpath", "//span[@id='nextPsry']//span[@class='mini-buttonedit-icon']")
             elementObj = getElement(self.driver, "css selector", "span#"+id+">span>span>span>span.mini-buttonedit-icon")
-
             return elementObj
         except Exception as e:
             raise e
@@ -149,7 +147,8 @@ class ZdjknsrTablePage:
     def nextPsryObj(self,spryname):
         # 选审批人员
         try:
-            elementObj = getElement(self.driver, "xpath", "//td[contains(text(),"+spryname+")]")
+            exp="\'"+spryname+"\'"
+            elementObj = getElement(self.driver, "xpath", "//td[contains(text(),"+exp+")]")
             return elementObj
         except Exception as e:
             raise e
@@ -246,6 +245,14 @@ class ZdjknsrTablePage:
 
     def spTjBtnObj(self):
         # 审批页面提交按钮-稽查定性虚开企业
+        try:
+            elementObj = getElement(self.driver, "xpath", "//input[@id='submit']")
+            return elementObj
+        except Exception as e:
+            raise e
+
+    def spHtBtnObj(self):
+        # 审批页面回退按钮
         try:
             elementObj = getElement(self.driver, "xpath", "//input[@id='submit']")
             return elementObj

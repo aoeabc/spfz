@@ -79,7 +79,8 @@ class ZdjknsrQueryPage:
     def xzjklxCbObj(self,lx):
         # 新增页面监控类型下拉框内容
         try:
-            elementObj = getElement(self.driver, "xpath", "//td[contains(text(),"+lx+")]")
+            exp="\'"+lx+"\'"
+            elementObj = getElement(self.driver, "xpath", "//td[contains(text(),"+exp+")]")
             return elementObj
         except Exception as e:
             raise e

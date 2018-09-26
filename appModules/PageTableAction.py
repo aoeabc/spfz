@@ -64,25 +64,38 @@ class PageTableAction:
         # 审批结果，选同意或者不同意；
         try:
             tablepage = ZdjknsrTablePage(driver)
-
-            if spjg == '同意':
-                tablepage.spTyBtnObj().click()
-            else:
-                tablepage.spBtyBtnObj().click()
             tablepage.spSmObj().send_keys(spsm)
+            time.sleep(2)
+            if spjg == '同意':
+                while not tablepage.spTyBtnObj().is_selected():
+                    tablepage.spTyBtnObj().click()
+                tablepage.spSmObj().send_keys(spsm)
 
-            if tablepage.spLxObj().get_attribute('value')=='工商异常名录':
-                tablepage.spSaveBtnObj().click()
-                print(tablepage.tjMessageObj().get_attribute('innerText'))
-                tablepage.tjMessageBtnObj().click()
+                if tablepage.spLxObj().get_attribute('value') == '工商异常名录':
+                    tablepage.spSaveBtnObj().click()
+                    print(tablepage.tjMessageObj().get_attribute('innerText'))
+                    tablepage.tjMessageBtnObj().click()
 
-            else:
-                tablepage.spTjBtnObj().click()
-                CommonAction.putPsry(driver,"\'蔡永进\'","nextZsry")
-
-
+                else:
+                    tablepage.spTjBtnObj().click()
+                    CommonAction.putPsry(driver, "蔡永进", "nextZsry")
 
 
+            elif spjg == '不同意':
+                while not tablepage.spBtyBtnObj().is_selected():
+                    tablepage.spBtyBtnObj().click()
+
+                tablepage.spSmObj().send_keys(spsm)
+
+                if tablepage.spLxObj().get_attribute('value') == '工商异常名录':
+                    tablepage.spSaveBtnObj().click()
+                    print(tablepage.tjMessageObj().get_attribute('innerText'))
+                    tablepage.tjMessageBtnObj().click()
+
+                else:
+                    tablepage.spTjBtnObj().click()
+                    print(tablepage.tjMessageObj().get_attribute('innerText'))
+                    tablepage.tjMessageBtnObj().click()
 
         except Exception as e:
 
