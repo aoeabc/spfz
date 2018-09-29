@@ -1,3 +1,4 @@
+import selenium
 from selenium import webdriver
 from appModules.LoginAction import LoginAction
 from appModules.TreeAction import TreeAction
@@ -51,13 +52,13 @@ def test_dbZdjknsr(pcbh):
 def test_xgZdjknsr(pcbh):
     try:
         driver=LoginAction.driver("http://86.100.16.15:8001")
-        LoginAction.login(driver,"szgscaiyj","888888")
+        LoginAction.login(driver,"szgsfengyj","888888")
         TreeAction.getFirstTree(driver,"重点监控纳税人库")
         TreeAction.getSecondTree(driver,'重点监控纳税人手动出库')
-        TreeAction.getThirdTree(driver,"出库审批")
-        for p in pcbh:
-            print(p)
-            ZdjknsrXgAction.pcXg(driver,pcbh=p,xgsm='审批说明',spry="蔡永进")
+        TreeAction.getThirdTree(driver,"出库申请")
+        # for p in pcbh:
+        #     print(p)
+        ZdjknsrXgAction.pcXg(driver,pcbh=pcbh,xgsm='修改说明',spry="蔡永进")
 
 
     except Exception as e:
@@ -67,7 +68,26 @@ def test_xgZdjknsr(pcbh):
     finally:
          driver.quit()
 
+
+def test():
+    try:
+        driver=LoginAction.driver("http://86.100.16.15:8001")
+        LoginAction.login(driver,"szgsfengyj","8888")
+        TreeAction.getFirstTree(driver,"重点监控纳税人库")
+
+
+    except Exception as e:
+        #selenium.common.exceptions.UnexpectedAlertPresentException: Alert Text: 停止运行此脚本吗?
+        raise e
+
+    finally:
+         driver.quit()
         
 if __name__=="__main__":
-    pcbh='JCBASJ20180097'
-    test_dbZdjknsr(pcbh)
+    try:
+
+        test()
+
+    except (Exception,selenium.common.exceptions.TimeoutException) as e:
+       print(str(e))
+

@@ -17,7 +17,7 @@ class PageTableAction:
             CommonAction.putPsry(driver,spry,"nextPsry")
 
         except Exception as e:
-            print(e)
+            raise e
 
 
     @staticmethod
@@ -108,7 +108,7 @@ class PageTableAction:
             tablepage = ZdjknsrTablePage(driver)
             for ele in tablepage.jcyyXgSeletedObj():
                 ele.click()
-                tablepage.jcyyXgInputObj().sendKeys(xgsm)
+                tablepage.jcyyXgInputObj().send_keys(xgsm)
 
 
         except Exception as e:

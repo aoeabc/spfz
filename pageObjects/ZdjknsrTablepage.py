@@ -98,7 +98,7 @@ class ZdjknsrTablePage:
     def jcyyXgSeletedObj(self):
         # 修改时，table中选中监控原因输入框
         try:
-            elementObj = getElements(self.driver, "xpath", "//tr/td[13]")
+            elementObj = getElements(self.driver, "xpath", "//tr[contains(@id,'mini-3$')]/td[13]")
             return elementObj
         except Exception as e:
             raise e
@@ -121,7 +121,7 @@ class ZdjknsrTablePage:
             raise e
 
     def jcyyXgInputObj(self):
-        # 新增时，监控原因输入框
+        # 修改时，监控原因输入框
         try:
             elementObj = getElement(self.driver, "xpath", "//span[@id='mini-28']//input[@class='mini-textbox-input']")
             return elementObj

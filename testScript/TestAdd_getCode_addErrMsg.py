@@ -1,4 +1,4 @@
-import xlrd,xlwt
+import xlrd, xlwt
 from xlutils.copy import copy
 from appModules.LoginAction import LoginAction
 from appModules.TreeAction import TreeAction
@@ -8,11 +8,11 @@ from appModules.ZdjknsrXgAction import ZdjknsrXgAction
 
 import time
 
-global able_sp,able_xg,able_zs
+global able_sp, able_xg, able_zs
 
-able_sp={}
-able_xg={}
-able_zs={}
+able_sp = {}
+able_xg = {}
+able_zs = {}
 
 
 def test_addZdjknsr(row):
@@ -25,13 +25,16 @@ def test_addZdjknsr(row):
         pas = row[7].split(";")
         global able_sp
         for pa in pas:
-            p=eval(pa)
-            pcbh = ZdjknsrAddAction.gsycmlAdd(driver, number=int(p.get('number')), spry=p.get('spry'), reason=p.get('reason'), lx=p.get('lx'))
+            p = eval(pa)
+            pcbhs=[]
+            pcbh = ZdjknsrAddAction.gsycmlAdd(driver, number=int(p.get('number')), spry=p.get('spry'),
+                                              reason=p.get('reason'), lx=p.get('lx'))
 
-            able_sp[pcbh]=p.get('lx')
-        flag='Pass'
-        row[9]=flag
-        row[10]=able_sp
+            able_sp[pcbh] = p.get('lx')
+            pcbhs.append(pcbh)
+        flag = 'Pass'
+        row[9] = flag
+        row[10] = pcbhs
 
         return row
 
@@ -50,24 +53,24 @@ def test_dbZdjknsr(row):
         TreeAction.getFirstTree(driver, row[4])
         TreeAction.getSecondTree(driver, row[5])
         TreeAction.getThirdTree(driver, row[6])
-        pas=row[7].split(';')
+        pas = row[7].split(';')
         global able_xg, able_sp, able_zs
         for pa in pas:
-            p=eval(pa)
-            pcbh=list(able_sp.keys())[0]
+            p = eval(pa)
+            pcbh = list(able_sp.keys())[0]
             print(pcbh)
-            pcbhs=[]
+            pcbhs = []
             ZdjknsrDbAction.gsycmlDb(driver, pcbh=pcbh, spsm=p.get('spsm'), spjg=p.get('spjg'))
-            if p.get('spjg')=='不同意':
-                able_xg[pcbh]=able_sp.pop(pcbh)
-            elif p.get('spjg')=='同意' and able_sp[pcbh] == '稽查定性虚开企业':
+            if p.get('spjg') == '不同意':
+                able_xg[pcbh] = able_sp.pop(pcbh)
+            elif p.get('spjg') == '同意' and able_sp[pcbh] == '稽查定性虚开企业':
                 able_zs[pcbh] = able_sp.pop(pcbh)
             else:
                 del able_sp[pcbh]
             pcbhs.append(pcbh)
         flag = 'Pass'
-        row[9]=flag
-        row[10]=pcbhs
+        row[9] = flag
+        row[10] = pcbhs
 
         return row
 
@@ -109,8 +112,9 @@ def test_xgZdjknsr(row):
     finally:
         driver.quit()
 
+
 def readXl():
-    workbook = xlrd.open_workbook(r'd:\test_data.xls',formatting_info=True)
+    workbook = xlrd.open_workbook(r'd:\test_data.xls', formatting_info=True)
     sheetname = workbook.sheet_by_index(0)
     rows = sheetname.nrows
     f = copy(workbook)
@@ -119,21 +123,48 @@ def readXl():
     for row in range(rows):
 
         if sheetname.row_values(row)[1] == 'test_addZdjknsr' and sheetname.row_values(row)[8] == 'Y':
-            data = test_addZdjknsr(sheetname.row_values(row))
-            sheet1.write(row, 9, data[9],set_style())
-            sheet1.write(row, 10, list(data[10].keys()), set_style())
+            try:
+
+                data = test_addZdjknsr(sheetname.row_values(row))
+            except Exception as e:
+
+                sheet1.write(row, 9, 'Fail', set_style())
+                sheet1.write(row, 10, str(e), set_style())
+                continue
+            else:
+                sheet1.write(row, 9, data[9], set_style())
+                sheet1.write(row, 10, data[10], set_style())
+
 
         elif sheetname.row_values(row)[1] == 'test_dbZdjknsr' and sheetname.row_values(row)[8] == 'Y':
-            data = test_dbZdjknsr(sheetname.row_values(row))
-            sheet1.write(row, 9, data[9],set_style())
-            sheet1.write(row, 10, data[10], set_style())
+            try:
+                data = test_dbZdjknsr(sheetname.row_values(row))
+
+            except Exception as e:
+                sheet1.write(row, 9, 'Fail', set_style())
+                sheet1.write(row, 10, str(e), set_style())
+                continue
+            else:
+
+                sheet1.write(row, 9, data[9], set_style())
+                sheet1.write(row, 10, data[10], set_style())
+
 
         elif sheetname.row_values(row)[1] == 'test_xgZdjknsr' and sheetname.row_values(row)[8] == 'Y':
-            data = test_xgZdjknsr(sheetname.row_values(row))
-            sheet1.write(row, 9, data[9],set_style())
-            sheet1.write(row, 10, data[10], set_style())
+            try:
+                data = test_xgZdjknsr(sheetname.row_values(row))
+            except Exception as e:
+                sheet1.write(row, 9, 'Fail', set_style())
+                sheet1.write(row, 10, str(e), set_style())
+                continue
+            else:
 
-    f.save(r'd:\test_data1.xls')
+                sheet1.write(row, 9, data[9], set_style())
+                sheet1.write(row, 10, data[10], set_style())
+
+
+        f.save(r'd:\test_data1.xls')
+
 
 def set_style():
     #   设置颜色
@@ -142,20 +173,21 @@ def set_style():
     pattern.pattern_fore_colour = 17
     #   设置边框
     borders = xlwt.Borders()
-    borders.bottom=xlwt.Borders.THIN
-    borders.left=xlwt.Borders.THIN
-    borders.right=xlwt.Borders.THIN
-    borders.top=xlwt.Borders.THIN
-    borders.bottom_colour=0x40
-    borders.left_colour=0x40
-    borders.right_colour=0x40
-    borders.top_colour=0x40
-
+    borders.bottom = xlwt.Borders.THIN
+    borders.left = xlwt.Borders.THIN
+    borders.right = xlwt.Borders.THIN
+    borders.top = xlwt.Borders.THIN
+    borders.bottom_colour = 0x40
+    borders.left_colour = 0x40
+    borders.right_colour = 0x40
+    borders.top_colour = 0x40
 
     style = xlwt.XFStyle()
     style.pattern = pattern
     style.borders = borders
 
     return style
+
+
 if __name__ == "__main__":
     readXl()

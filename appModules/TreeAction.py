@@ -16,7 +16,7 @@ class TreeAction:
                 if firsttreename in tre.get_attribute("innerText").replace('\r\n',''):
                     tre.click()
         except Exception as e:
-            print(e)
+            raise e
 
     @staticmethod
     def getSecondTree(driver,secondtreename):

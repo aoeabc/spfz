@@ -8,13 +8,17 @@ class CommonAction:
 
     @staticmethod
     def checkbox(driver,id,element):
-        querytable = ZdjknsrQueryPage(driver)
+        try:
 
-        while 'mini-buttonedit-popup' not in querytable.checkboxObj(id).get_attribute("class"):
+            querytable = ZdjknsrQueryPage(driver)
 
-            element.click()
-            if 'mini-buttonedit-popup' in querytable.checkboxObj(id).get_attribute("class"):
-                break
+            while 'mini-buttonedit-popup' not in querytable.checkboxObj(id).get_attribute("class"):
+
+                element.click()
+                if 'mini-buttonedit-popup' in querytable.checkboxObj(id).get_attribute("class"):
+                    break
+        except Exception as e:
+            raise e
 
 
     @staticmethod
@@ -28,10 +32,10 @@ class CommonAction:
             tablepage.nextPsryBtnObj().click()
             time.sleep(3)
             message=tablepage.tjMessageObj().get_attribute('innerText')
-            assert '保存成功' in message
+            assert '成功' in message
             tablepage.tjMessageBtnObj().click()
             time.sleep(3)
 
         except Exception as e:
-            print(e)
+            raise e
 
