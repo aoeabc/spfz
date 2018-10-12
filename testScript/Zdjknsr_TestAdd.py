@@ -1,13 +1,14 @@
 import selenium
-from selenium import webdriver
+from appModules.FrameSwitchAction import FrameSwitchAction
 from appModules.LoginAction import LoginAction
 from appModules.TreeAction import TreeAction
 from appModules.ZdjknsrAddAction import ZdjknsrAddAction
 from appModules.ZdjknsrDbAction import ZdjknsrDbAction
 from appModules.ZdjknsrXgAction import ZdjknsrXgAction
-
-
+from appModules.ZdjknsrXgAction import CommonAction
+from pageObjects.ZdjknsrFramePage import ZdjknsrFramePage
 import time
+
 
 def test_addZdjknsr():
     try:
@@ -24,12 +25,12 @@ def test_addZdjknsr():
         pcbh.append(pcbh2)
         return pcbh
 
-
     except Exception as e:
         raise e
 
     finally:
          driver.quit()
+
 
 def test_dbZdjknsr(pcbh):
     try:
@@ -41,13 +42,13 @@ def test_dbZdjknsr(pcbh):
         #for p in pcbh:
         ZdjknsrDbAction.gsycmlDb(driver,pcbh=pcbh,spsm='审批说明',spjg="不同意")
 
-
     except Exception as e:
         #selenium.common.exceptions.UnexpectedAlertPresentException: Alert Text: 停止运行此脚本吗?
         raise e
 
-    # finally:
-    #      driver.quit()
+    finally:
+          driver.quit()
+
 
 def test_xgZdjknsr(pcbh):
     try:
@@ -69,25 +70,8 @@ def test_xgZdjknsr(pcbh):
          driver.quit()
 
 
-def test():
-    try:
-        driver=LoginAction.driver("http://86.100.16.15:8001")
-        LoginAction.login(driver,"szgsfengyj","8888")
-        TreeAction.getFirstTree(driver,"重点监控纳税人库")
-
-
-    except Exception as e:
-        #selenium.common.exceptions.UnexpectedAlertPresentException: Alert Text: 停止运行此脚本吗?
-        raise e
-
-    finally:
-         driver.quit()
-        
 if __name__=="__main__":
-    try:
+    test_xgZdjknsr('999')
 
-        test()
 
-    except (Exception,selenium.common.exceptions.TimeoutException) as e:
-       print(str(e))
 

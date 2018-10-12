@@ -1,5 +1,6 @@
 from util.ObjectMap import *
 
+
 class ZdjknsrFramePage:
     def __init__(self, driver):
         self.driver = driver
@@ -15,7 +16,7 @@ class ZdjknsrFramePage:
     def xzPageFrameObj(self):
         # 新增tab页
         try:
-            elementObj=getElement(self.driver,"xpath","//iframe[contains(@src,'zdnsrk/jczdnsr_xz.webfaster')]")
+            elementObj = getElement(self.driver,"xpath","//iframe[contains(@src,'zdnsrk/jczdnsr_xz.webfaster')]")
             return elementObj
         except Exception as e:
             raise e
@@ -23,7 +24,7 @@ class ZdjknsrFramePage:
     def xgPageFrameObj(self):
         # 修改tab页
         try:
-            elementObj=getElement(self.driver,"xpath","//iframe[contains(@src,'jczdnsr_xg.webfaster')]")
+            elementObj = getElement(self.driver,"xpath","//iframe[contains(@src,'jczdnsr_xg.webfaster')]")
             return elementObj
         except Exception as e:
             raise e
@@ -31,7 +32,7 @@ class ZdjknsrFramePage:
     def dbPageFrameObj(self):
         # 代办页面
         try:
-            elementObj=getElement(self.driver,"xpath","//iframe[contains(@src,'zdnsrk_rwdb.webfaster')]")
+            elementObj = getElement(self.driver,"xpath","//iframe[contains(@src,'zdnsrk_rwdb.webfaster')]")
             return elementObj
         except Exception as e:
             raise e
@@ -39,7 +40,7 @@ class ZdjknsrFramePage:
     def spPageFrameObj(self):
         # 审批页面
         try:
-            elementObj=getElement(self.driver,"xpath","//iframe[contains(@src,'zdnsrk_sp.webfaster')]")
+            elementObj = getElement(self.driver,"xpath","//iframe[contains(@src,'zdnsrk_sp.webfaster')]")
             return elementObj
         except Exception as e:
             raise e

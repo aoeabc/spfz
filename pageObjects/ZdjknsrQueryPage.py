@@ -5,25 +5,73 @@ class ZdjknsrQueryPage:
     def __init__(self, driver):
         self.driver = driver
 
-
     def dateFrameObj(self):
-        # 时间控件
+        # 时间控件框架
         try:
             elementObj = getElement(self.driver, "xpath", "//div[@id='_my97DP']/iframe")
             return elementObj
         except Exception as e:
             raise e
 
+    def dateEnterBtnObj(self):
+        # 时间控件确定按钮
+        try:
+            elementObj = getElement(self.driver, "xpath", "//input[@class='yminputfocus']")
+            return elementObj
+        except Exception as e:
+            raise e
+
+    def dateOKBtnObj(self):
+        # 时间控件确定按钮
+        try:
+            elementObj = getElement(self.driver, "id", "dpOkInput")
+            return elementObj
+        except Exception as e:
+            raise e
+
+    def dateSectBtnObj(self,id):
+        # 弹出时间控件按钮
+        try:
+            elementObj = getElement(self.driver, "css selector", "span#"+id+">span>span>span>span.mini-buttonedit-icon")
+            return elementObj
+        except Exception as e:
+            raise e
+
+    def timeYearObj(self):
+        # 时间选择“年”
+        try:
+            elementObj = getElement(self.driver, "xpath", "//div[@class='menuSel YMenu']/following-sibling::input[1]")
+            return elementObj
+        except Exception as e:
+            raise e
+
+    def timeMonthObj(self):
+        # 时间选择“月”
+        try:
+            elementObj = getElement(self.driver, "xpath", "//div[@class='menuSel MMenu']/following-sibling::input[1]")
+            return elementObj
+        except Exception as e:
+            raise e
+
+    def timeDateObj(self, year, mouth, date):
+        # 时间选择“日”
+        try:
+            exp=year+','+mouth+','+date
+            elementObj = getElement(self.driver, "xpath", "//td[contains(@onclick,'("+exp+")')]")
+            return elementObj
+        except Exception as e:
+            raise e
+
     def nsrsbhObj(self):
         try:
-            elementObj=getElement(self.driver,"xpath","//input[@id='nsrsbh$text')]")
+            elementObj = getElement(self.driver,"xpath","//input[@id='nsrsbh$text')]")
             return elementObj
         except Exception as e:
             raise e
 
     def nsrmcObj(self):
         try:
-            elementObj=getElement(self.driver,"xpath","//input[@id='nsrmc$text')]")
+            elementObj = getElement(self.driver,"xpath","//input[@id='nsrmc$text')]")
             return elementObj
         except Exception as e:
             raise e
@@ -52,13 +100,6 @@ class ZdjknsrQueryPage:
         except Exception as e:
             raise e
 
-    def timeDateObj(self):
-        # 时间选择“日”
-        try:
-            elementObj = getElement(self.driver, "xpath", "//td[contains(text(),'11')]")
-            return elementObj
-        except Exception as e:
-            raise e
 
     def jklxObj(self):
         # 监控类型下拉框按钮
@@ -85,8 +126,8 @@ class ZdjknsrQueryPage:
         except Exception as e:
             raise e
 
-
     def queryBtnObj(self):
+        # 查询按钮
         try:
             elementObj = getElement(self.driver, "xpath", "//input[@type='button']")
             return elementObj
@@ -94,6 +135,7 @@ class ZdjknsrQueryPage:
             raise e
 
     def resetBtnObj(self):
+        # 重置按钮
         try:
             elementObj = getElement(self.driver, "xpath", "//input[@type='reset']")
             return elementObj
@@ -101,6 +143,7 @@ class ZdjknsrQueryPage:
             raise e
 
     def checkboxObj(self,id):
+        # 判断下拉框是否有popup属性，有该属性则表示下拉框弹出来了；
         try:
             elementObj = getElement(self.driver, "id", id)
             return elementObj

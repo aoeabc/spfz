@@ -31,7 +31,7 @@ class ZdjknsrTablePage:
             raise e
 
     def nextPagerBtnObj(self):
-        #下一页按钮
+        # 下一页按钮
         try:
             elementObj = getElement(self.driver, "xpath","//div[@id='pager1']//a[@title='下一页']/span")
             return elementObj
@@ -39,7 +39,7 @@ class ZdjknsrTablePage:
             raise e
 
     def nextPagerBtn1Obj(self):
-        #下一页按钮判断
+        # 下一页按钮判断
         try:
             elementObj = getElement(self.driver, "xpath","//div[@id='pager1']//a[@title='下一页']")
             return elementObj
@@ -49,7 +49,8 @@ class ZdjknsrTablePage:
     def ckpcBtnObj(self, pcbh):
         # 查看批次按钮
         try:
-            elementObj = getElement(self.driver, "xpath", "//a[contains(@onclick,pcbh) and contains(@onclick,'ck')]")
+            exp = "//a[contains(@onclick,\'"+pcbh+"\') and contains(@onclick,'ck')]"
+            elementObj = getElement(self.driver, "xpath", exp)
             return elementObj
         except Exception as e:
             raise e
@@ -57,7 +58,8 @@ class ZdjknsrTablePage:
     def xgpcBtnObj(self, pcbh):
         # 修改批次按钮
         try:
-            elementObj = getElement(self.driver, "xpath", "//a[contains(@onclick,pcbh) and contains(@onclick,'xg')]")
+            exp = "//a[contains(@onclick,\'"+pcbh+"\') and contains(@onclick,'xg')]"
+            elementObj = getElement(self.driver, "xpath", exp)
             return elementObj
         except Exception as e:
             raise e
@@ -65,7 +67,8 @@ class ZdjknsrTablePage:
     def scpcBtnObj(self, pcbh):
         # 删除批次按钮
         try:
-            elementObj = getElement(self.driver, "xpath", "//a[contains(@onclick,pcbh) and contains(@onclick,'sc')]")
+            exp = "//a[contains(@onclick,\'"+pcbh+"\') and contains(@onclick,'sc')]"
+            elementObj = getElement(self.driver, "xpath", exp)
             return elementObj
         except Exception as e:
             raise e

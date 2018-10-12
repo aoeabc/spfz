@@ -1,14 +1,15 @@
 from pageObjects.LoginPage import LoginPage
 from selenium import webdriver
 
+
 class LoginAction:
     def __init__(self):
         print("login.......")
 
     @staticmethod
-    def login(driver,username,password):
+    def login(driver, username, password):
         try:
-            login=LoginPage(driver)
+            login = LoginPage(driver)
             login.userNameObj().clear()
             login.userNameObj().send_keys(username)
             login.passWordObj().send_keys(password)
@@ -30,6 +31,6 @@ class LoginAction:
             raise e
 
 if __name__=='__main__':
-    l=LoginAction()
-    driver=l.driver('http://86.100.16.15:8001')
-    l.login(driver,'szgsfengyj','000000')
+    l = LoginAction()
+    driver = l.driver('http://86.100.16.15:8001')
+    l.login(driver, 'szgsfengyj', '000000')

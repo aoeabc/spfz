@@ -41,3 +41,9 @@ class FrameSwitchAction:
         framepage = ZdjknsrFramePage(driver)
         frameSwitch(driver)
         driver.switch_to.frame(framepage.xgPageFrameObj())
+
+    @staticmethod
+    def frameSwitchTo(driver,frame_ele):
+        # frame_ele：为第三级页面的框架节点对象
+        frameSwitch(driver)
+        driver.switch_to.frame(frame_ele)
