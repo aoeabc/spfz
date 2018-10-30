@@ -2,6 +2,9 @@ from pageObjects.ZdjknsrQueryPage import ZdjknsrQueryPage
 from pageObjects.ZdjknsrTablepage import ZdjknsrTablePage
 from selenium.webdriver.common.keys import Keys
 from appModules.FrameSwitchAction import *
+from pageObjects.FkFramePage import FkFramePage
+from pageObjects.FkrwdyPage import FkrwdyPage
+from pageObjects.TimePage import TimePage
 import time
 
 
@@ -63,9 +66,30 @@ class CommonAction:
         except Exception as e:
             raise e
 
+    @staticmethod
+    def putjsjg(driver,ydjg):
+
+        try:
+            page=FkrwdyPage(driver)
+            frame=FkFramePage(driver)
+            driver.switch_to.default_content()
+            driver.switch_to.frame(frame.jsjgtreeFrameObj())
+            page.ydjgSltObj(ydjg).click()
+            time.sleep(1)
+            page.ydjgtreeBtnObj().click()
+            time.sleep(2)
+            driver.switch_to.default_content()
+            frameSwitch(driver)
+            driver.switch_to.frame(frame.rwdyPageFrameObj())
+            #FrameSwitchAction.frameSwitchTo(driver, frame.rwdyPageFrameObj())
+
+        except Exception as e:
+            raise e
+
+
 def setyear(driver, id, year):
     try:
-        query = ZdjknsrQueryPage(driver)
+        query = TimePage(driver)
         query.dateSectBtnObj(id).click()  # tisjq
         driver.switch_to.default_content()
         driver.switch_to.frame(query.dateFrameObj())
@@ -79,7 +103,7 @@ def setyear(driver, id, year):
 
 def setmonth(driver, id, month):
     try:
-        query = ZdjknsrQueryPage(driver)
+        query = TimePage(driver)
         query.dateSectBtnObj(id).click()  # tisjq
         driver.switch_to.default_content()
         driver.switch_to.frame(query.dateFrameObj())
@@ -92,7 +116,7 @@ def setmonth(driver, id, month):
 
 def setdate(driver, id, year, month, date):
     try:
-        query = ZdjknsrQueryPage(driver)
+        query = TimePage(driver)
         query.dateSectBtnObj(id).click()  # tisjq
         driver.switch_to.default_content()
         driver.switch_to.frame(query.dateFrameObj())
@@ -101,3 +125,6 @@ def setdate(driver, id, year, month, date):
 
     except Exception as e:
         raise e
+
+def scroll_to(driver,ele):
+    driver.execute_script("arguments[0].scrollIntoView();", ele)

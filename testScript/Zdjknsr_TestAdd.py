@@ -69,9 +69,24 @@ def test_xgZdjknsr(pcbh):
     finally:
          driver.quit()
 
+def test():
+    try:
+        driver=LoginAction.driver("http://86.100.16.15:8001")
+        LoginAction.login(driver,"szgsfengyj","888888111")
+        TreeAction.getFirstTree(driver, "重点监控纳税人库")
+
+    except Exception as e:
+        raise e('登录失败，用户名或者密码错误')
 
 if __name__=="__main__":
-    test_xgZdjknsr('999')
+    #test()
+    a = 2
+    b = 0
+    if not b:
+        print("1111")
+    else:
+        print("22222")
+
 
 
 
