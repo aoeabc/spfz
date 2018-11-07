@@ -49,3 +49,11 @@ class TreePage:
             return elementObj
         except Exception as e:
             raise e
+
+    def closeTreeBtnObj(self, treename):
+        # 关闭标签
+        try:
+            elementObj = getElement(self.driver, "xpath", "//span[contains(text(), \'"+treename+"\')]/following-sibling::span")
+            return elementObj
+        except Exception as e:
+            raise e

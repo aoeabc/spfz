@@ -5,6 +5,7 @@ from appModules.FrameSwitchAction import *
 from pageObjects.FkFramePage import FkFramePage
 from pageObjects.FkrwdyPage import FkrwdyPage
 from pageObjects.TimePage import TimePage
+from pageObjects.TreePage import TreePage
 import time
 
 
@@ -114,6 +115,7 @@ def setmonth(driver, id, month):
     except Exception as e:
         raise e
 
+
 def setdate(driver, id, year, month, date):
     try:
         query = TimePage(driver)
@@ -126,5 +128,18 @@ def setdate(driver, id, year, month, date):
     except Exception as e:
         raise e
 
+
 def scroll_to(driver,ele):
     driver.execute_script("arguments[0].scrollIntoView();", ele)
+
+
+def closetab(driver, tree, name):
+    # 主页面标签、第三菜单标签    closetab(driver, "maintab", "风险应对")
+    page = TreePage(driver)
+    if tree == 'maintab':
+        driver.switch_to.default_content()
+    else:
+        frameSwitch(driver)
+        print
+    page.closeTreeBtnObj(name).click()
+

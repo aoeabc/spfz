@@ -44,3 +44,20 @@ class FkFramePage:
             return elementObj
         except Exception as e:
             raise e
+
+    def rwfkPageFrameObj(self):
+        # 任务反馈tab页
+        try:
+            elementObj = getElement(self.driver, "xpath", "//iframe[contains(@src,'ydcz_rwfk.webfaster')]")
+            return elementObj
+        except Exception as e:
+            raise e
+
+    def rwfkfkPageFrameObj(self):
+        # 应对反馈tab页，任务反馈-》应对反馈
+        try:
+            elementObj = getElement(self.driver, "xpath", "//iframe[contains(@src,'ydcz_rwfk_fk.webfaster')]")
+            return elementObj
+        except Exception as e:
+            raise e
+
