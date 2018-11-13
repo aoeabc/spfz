@@ -6,7 +6,7 @@ from appModules.CommonAction import *
 import time
 
 
-def rwdyAction(driver, rwpcbh, hxcl, jsjg):
+def rwdyAction(driver, rwpcbh, hxcl, jsjg, nsrnums=1):
     try:
         page = FkrwdyPage(driver)
         frame1 = FkFramePage(driver)
@@ -16,20 +16,24 @@ def rwdyAction(driver, rwpcbh, hxcl, jsjg):
         page.rwdyBtnObj().click()
         page.queryBtnObj().click()
         page.rwpcmcObj().send_keys(rwpcbh)
-        # 后续处理设置
-        page.tableclickObj("后续处理").click()
-        time.sleep(3)
-        page.hxclBtnObj().click()
-        time.sleep(2)
-        page.hxclSltObj(hxcl).click()
-        # 应对机关设置
-        page.tableclickObj("接收机关").click()
-        time.sleep(3)
-        page.jsjgBtnObj().click()
-        CommonAction.putjsjg(driver, jsjg)
-        # 选择勾选框
-        page.tableclickObj("勾选框").click()
+        for nsr in range(nsrnums):
+            # 后续处理设置
+            page.tableclickObj("后续处理", nsr).click()
+            time.sleep(2)
+            # page.hxclBtnObj().click()
+            CommonAction.checkbox(driver, 'mini-218', page.hxclBtnObj())
+            time.sleep(2)
+            page.hxclSltObj(hxcl).click()
+            # 应对机关设置
+            page.tableclickObj("接收机关", nsr).click()
+            time.sleep(3)
+            page.jsjgBtnObj().click()
+            CommonAction.putjsjg(driver, jsjg)
+            # 选择勾选框
+            page.tableclickObj("勾选框", nsr).click()
+
         page.bcBtnObj().click()
+        time.sleep(5)
         # timepage=TimePage(driver)
         # timepage.dateSectBtnObj('rwwcsx_s').click()
         page.rwwcqxBtnObj().click()

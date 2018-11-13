@@ -24,7 +24,7 @@ class FkrwfkPage:
     def ksfkBtnObj(self):
         # 应对反馈页面，开始反馈按钮
         try:
-            elementObj = getElement(self.driver, "xpath", "//a[contains(@href,'javascript:doFk')]")
+            elementObj = getElements(self.driver, "xpath", "//a[contains(@href,'javascript:doFk')]")
             return elementObj
         except Exception as e:
             raise e

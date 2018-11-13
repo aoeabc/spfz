@@ -37,12 +37,12 @@ class FkrwdyPage:
         except Exception as e:
             raise e
 
-    def tableclickObj(self,name):
+    def tableclickObj(self, name, num=1):
         # 定义页面后续处理、接收机关、应对方式，选择对应的输入框
+        exp = "mini-160$" + str(num)
+        # exp = "mini-160$0"
         if name=="后续处理":
             try:
-                # exp="mini-160$"+num
-                exp = "mini-160$0"
                 elementObj = getElement(self.driver, "xpath", "//tr[@id=\'"+exp+"\']/td[9]")
                 return elementObj
             except Exception as e:
@@ -50,8 +50,6 @@ class FkrwdyPage:
 
         elif name=="接收机关":
             try:
-                #exp="mini-160$"+num
-                exp = "mini-160$0"
                 elementObj = getElement(self.driver, "xpath", "//tr[@id=\'"+exp+"\']/td[10]")
                 return elementObj
             except Exception as e:
@@ -59,8 +57,6 @@ class FkrwdyPage:
 
         elif name=="应对方式":
             try:
-                #exp="mini-160$"+num
-                exp = "mini-160$0"
                 elementObj = getElement(self.driver, "xpath", "//tr[@id=\'"+exp+"\']/td[11]")
                 return elementObj
             except Exception as e:
@@ -68,8 +64,6 @@ class FkrwdyPage:
 
         elif name=="勾选框":
             try:
-                #exp="mini-160$"+num
-                exp = "mini-160$0"
                 elementObj = getElement(self.driver, "xpath", "//tr[@id=\'"+exp+"\']/td[1]/input")
                 return elementObj
             except Exception as e:
