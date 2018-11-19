@@ -84,3 +84,35 @@ class FkFramePage:
             return elementObj
         except Exception as e:
             raise e
+
+    def ydjgtzPageFrameObj(self):
+        # 应对结果调整批次页面
+        try:
+            elementObj = getElement(self.driver, "xpath", "//iframe[contains(@src,'ydcz_ydjg_tz.webfaster')]")
+            return elementObj
+        except Exception as e:
+            raise e
+
+    def ydjgtztzPageFrameObj(self):
+        # 应对结果调整详情页面
+        try:
+            elementObj = getElement(self.driver, "xpath", "//iframe[contains(@src,'ydcz_rwfk_sjyh_sk.webfaster')]")
+            return elementObj
+        except Exception as e:
+            raise e
+
+    def ydjgtzspPageFrameObj(self):
+        # 应对结果调整审批批次页面
+        try:
+            elementObj = getElement(self.driver, "xpath", "//iframe[contains(@src,'ydcz_ydjg_tzsp.webfaster')]")
+            return elementObj
+        except Exception as e:
+            raise e
+
+    def ydjgtzspspPageFrameObj(self):
+        # 应对结果调整审批详情页面
+        try:
+            elementObj = getElement(self.driver, "xpath", "//iframe[contains(@src,'ydcz_ydjg_tzsp_sp.webfaster')]")
+            return elementObj
+        except Exception as e:
+            raise e

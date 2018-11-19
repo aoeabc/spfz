@@ -1,67 +1,67 @@
 from util.ObjectMap import *
 
 
-class FkrwfkfhPage:
+class FkrwfktzspPage:
     def __init__(self, driver):
         self.driver = driver
 
-    def rwlxradioObj(self):
-        # 查询条件任务类型
-        try:
-            elementObj = getElement(self.driver, "id", "mini-40$ck$0")
-            return elementObj
-        except Exception as e:
-            raise e
-
     def queryBtnObj(self):
-        # 定义页面查询按钮
+        # 查询按钮
         try:
-            elementObj = getElement(self.driver, "xpath", "//input[@name='B15']")
+            elementObj = getElement(self.driver, "xpath", "//input[@onclick='query();']")
             return elementObj
         except Exception as e:
             raise e
 
-    def fkfhBtnObj(self, rwid):
-        # 复核按钮
-        try:
-            elementObj = getElement(self.driver, "xpath", "//a[contains(@href,\'"+rwid+"\')]")
-            return elementObj
-        except Exception as e:
-            raise
+    def tzspBtnObj(self, narid = None):
+        # 审批按钮
+        if narid == None:
+            try:
+                elementObj = getElement(self.driver, "xpath", "//a[contains(@onclick,'javascript:sp')]")
+                return elementObj
+            except Exception as e:
+                raise e
+        else:
+            try:
+                elementObj = getElement(self.driver, "xpath", "//td[contains(text(),\'"+narid+"\')]/following-sibling::td[7]/a[1]")
+                return elementObj
+            except Exception as e:
+                raise e
 
-    def fkfhjgObj(self, tag = None):
+
+    def tzspjgObj(self, tag = None):
         # 反馈复核结果,同意或者不同意
         if tag == "n" or tag == "N" or tag == "否" or tag == "不同意":
             try:
-                elementObj = getElement(self.driver, "id", "mini-24$ck$1")
+                elementObj = getElement(self.driver, "id", "mini-5$ck$1")
                 return elementObj
             except Exception as e:
                 raise e
 
         elif tag == "y" or tag == "Y" or tag == "是" or tag == "同意" or tag == None:
             try:
-                elementObj = getElement(self.driver, "id", "mini-24$ck$0")
+                elementObj = getElement(self.driver, "id", "mini-5$ck$0")
                 return elementObj
             except Exception as e:
                 raise e
 
-    def fkfhsmObj(self):
-        # 反馈复核说明
+    def spyjsmObj(self):
+        # 审批意见说明
         try:
-            elementObj = getElement(self.driver, "id", "spyjsm$text")
+            elementObj = getElement(self.driver, "id", "spyj$text")
             return elementObj
         except Exception as e:
             raise
 
-    def fkfhbcObj(self):
-        # 反馈复核保存按钮
+    def spbcObj(self):
+        # 调整审批保存按钮
         try:
-            elementObj = getElement(self.driver, "id", "bc")
+            elementObj = getElement(self.driver, "xpath", "//input[@onclick='doBc()']")
             return elementObj
         except Exception as e:
             raise
 
-    def fkfhMessageBtnObj(self):
+    def tjspMessageBtnObj(self):
         # 复核成功提示信息确定按钮
         try:
             elementObj = getElement(self.driver, "xpath", "//span[contains(text(),'确定')]")

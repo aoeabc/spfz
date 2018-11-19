@@ -33,4 +33,4 @@ class LoginAction:
 if __name__=='__main__':
     l = LoginAction()
     driver = l.driver('http://86.100.16.15:8001')
-    l.login(driver, 'szgsfengyj', '000000')
+    l.login(driver, 'szgsfengyj', '888888')
