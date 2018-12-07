@@ -1,54 +1,76 @@
-import xlwt
 import xlrd
 from xlutils.copy import copy
 
 
 class ParserExcel:
 
-    def __init__(self):
-        self.workbook = None
-        self.excelFile = None
-        self.font = Font(color=None)
-        self.RGBDict = {'red': 'FFFF3030', 'green':'FF008B00'}
+	def __init__(self,file_name=None,sheet_id=None):
+		if file_name:
+			self.file_name = file_name
+			self.sheet_id = sheet_id
+		else:
+			self.file_name = '../conf/fk_data.xls'
+			self.sheet_id = 0
+		self.data = self.get_data()
 
-    def loadWorkBook(self,excelfile):
-        # 根据路径获取表格对象
-        try:
-            self.workbook =  xlrd.open_workbook(excelfile)
-        except Exception as e:
-            raise e
-        self.excelFile = excelfile
-        return self.workbook
+	#获取sheets的内容
+	def get_data(self):
+		data = xlrd.open_workbook(self.file_name)
+		tables = data.sheets()[self.sheet_id]
+		return tables
 
-    def getSheetByName(self, sheetname):
-        #  根据sheet表名获取工作表对象
-        try:
-            sheet = self.workbook.sheet_by_name(sheetname)
-            return sheet
-        except Exception as e:
-            raise e
+	#获取单元格的行数
+	def get_lines(self):
+		tables = self.data
+		return tables.nrows
 
-    def getSheetByName(self, sheetindex):
-        #  根据sheet表索引获取工作表对象
-        try:
-            sheet = self.workbook.sheet_by_index(sheetindex)
-            return sheet
-        except Exception as e:
-            raise e
+	#获取某一个单元格的内容
+	def get_cell_value(self,row,col):
+		return self.data.cell_value(row,col)
 
-    def getRowsNumber(self, sheet):
-        #  获取工作表内容行数
-        return sheet.nrows
+	#写入数据
+	def write_value(self,row,col,value):
+		'''
+		写入excel数据
+		row,col,value
+		'''
+		read_data = xlrd.open_workbook(self.file_name)
+		write_data = copy(read_data)
+		sheet_data = write_data.get_sheet(0)
+		sheet_data.write(row,col,value)
+		write_data.save(self.file_name)
 
-    def getColsNumber(self, sheet):
-        # 获取工作表内容列数
-        return sheet.ncols
+	#根据对应的caseid 找到对应行的内容
+	def get_rows_data(self,case_id):
+		row_num = self.get_row_num(case_id)
+		rows_data = self.get_row_values(row_num)
+		return rows_data
 
-    def getRow(self, sheet, rownumber):
-        # 获取某一行的内容
-        return sheet.row_values(rownumber-1)
+	#根据对应的caseid找到对应的行号
+	def get_row_num(self,case_id):
+		num = 0
+		clols_data = self.get_cols_data()
+		for col_data in clols_data:
+			if case_id in col_data:
+				return num
+			num = num+1
 
-    def getCol(self, sheet, colnumber):
-        # 获取某一行的内容
-        return sheet.col_values(colnumber-1)
-    
+
+	#根据行号，找到该行的内容
+	def get_row_values(self,row):
+		tables = self.data
+		row_data = tables.row_values(row)
+		return row_data
+
+	#获取某一列的内容
+	def get_cols_data(self,col_id=None):
+		if col_id != None:
+			cols = self.data.col_values(col_id)
+		else:
+			cols = self.data.col_values(0)
+		return cols
+
+
+if __name__ == '__main__':
+	opers = ParserExcel()
+	print(opers.get_cell_value(1,2))

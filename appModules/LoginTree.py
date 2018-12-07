@@ -5,13 +5,13 @@ from appModules.TreeAction import TreeAction
 class LoginTree:
 
     @staticmethod
-    def logintree(url, username, password, ftree, stree, ttree=''):
+    def logintree(url, username, password, ftree, stree, ttree=None):
         try:
             driver = LoginAction.driver(url)
             LoginAction.login(driver, username, password)
             TreeAction.getFirstTree(driver, ftree)
             TreeAction.getSecondTree(driver, stree)
-            if ttree != '':
+            if ttree != None:
                 TreeAction.getThirdTree(driver, ttree)
 
         except Exception as e:

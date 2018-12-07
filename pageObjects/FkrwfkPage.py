@@ -13,25 +13,32 @@ class FkrwfkPage:
         except Exception as e:
             raise e
 
-    def rwfkBtnObj(self, rwbh):
+    def rwfkBtnObj(self, rwbh = None):
         # 任务反馈按钮
-        try:
-            elementObj = getElement(self.driver, "xpath", "//td[contains(text(),\'"+rwbh+"\')]/following-sibling::td[8]/a[1]")
-            return elementObj
-        except Exception as e:
-            raise e
+        if rwbh !=None:
+            try:
+                elementObj = getElement(self.driver, "xpath", "//td[contains(text(),\'"+rwbh+"\')]/following-sibling::td[8]/a[1]")
+                return elementObj
+            except Exception as e:
+                raise e
+        else:
+            try:
+                elementObj = getElement(self.driver, "xpath", "//a[contains(@href,'javascript:doRwfk')]")
+                return elementObj
+            except Exception as e:
+                raise e
 
     def ksfkBtnObj(self):
         # 应对反馈页面，开始反馈按钮
         try:
-            elementObj = getElements(self.driver, "xpath", "//a[contains(@href,'javascript:doFk')]")
+            elementObj = getElement(self.driver, "xpath", "//a[contains(@href,'javascript:doFk')]")
             return elementObj
         except Exception as e:
             raise e
 
-    def sfsjssObj(self, check):
+    def sfsjssObj(self, check = None):
         # 任务反馈页面，是否涉及税收
-        if check == "n" or check == "N" or check == "否":
+        if check == "n" or check == "N" or check == "否" or check == None:
             try:
                 elementObj = getElement(self.driver, "id", "mini-32$ck$0")
                 return elementObj
@@ -45,9 +52,9 @@ class FkrwfkPage:
             except Exception as e:
                 raise e
 
-    def sfwflxObj(self, check):
+    def sfwflxObj(self, check = None):
         # 任务反馈页面，是否无法联系单选框
-        if check == "n" or check == "N" or check == "否":
+        if check == "n" or check == "N" or check == "否" or check == None:
             try:
                 elementObj = getElement(self.driver, "xpath", "//th[contains(text(), '是否无法联系')]"
                                                               "/following-sibling::td[1]/div/div/div[1]/input")
@@ -63,7 +70,7 @@ class FkrwfkPage:
             except Exception as e:
                 raise e
 
-    def sfjbphObj(self, check):
+    def sfjbphObj(self, check = None):
         # 任务反馈页面，是否拒不配合单选框
         if check == "n" or check == "N" or check == "否":
             try:
@@ -73,7 +80,7 @@ class FkrwfkPage:
             except Exception as e:
                 raise e
 
-        elif check == "y" or check == "Y" or check == "是":
+        elif check == "y" or check == "Y" or check == "是" or check == None:
             try:
                 elementObj = getElement(self.driver, "xpath", "//th[contains(text(), '是否拒不配合')]"
                                                               "/following-sibling::td[1]/div/div/div[2]/input")
@@ -81,9 +88,9 @@ class FkrwfkPage:
             except Exception as e:
                 raise e
 
-    def bzzcdzjx(self, check):
+    def bzzcdzjx(self, check = None):
         # 任务反馈页面，经实地核查不在注册地经营单选框
-        if check == "n" or check == "N" or check == "否":
+        if check == "n" or check == "N" or check == "否" or check == None:
             try:
                 elementObj = getElement(self.driver, "xpath", "//th[contains(text(), '经实地核查不在注册地经营')]"
                                                               "/following-sibling::td[1]/div/div/div[1]/input")
@@ -167,9 +174,9 @@ class FkrwfkPage:
             raise e
 
     #------------------------------------------------------------------------------------------------
-    def nsrsfywtObj(self, check):
+    def nsrsfywtObj(self, check = None):
         # 任务反馈页面，纳税人是否有无问题
-        if check == "n" or check == "N" or check == "否":
+        if check == "n" or check == "N" or check == "否" or check == None:
             try:
                 elementObj = getElement(self.driver, "id", "mini-181$ck$0")
                 return elementObj

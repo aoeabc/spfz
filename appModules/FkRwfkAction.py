@@ -22,15 +22,23 @@ def rwfkAction(driver, rwbh):
         frameSwitch(driver)
         driver.switch_to.frame(frame.rwfkfkPageFrameObj())
         rwid=[]
-        for ele in page.ksfkBtnObj():
+        while True:
+            try:
+                ele = page.ksfkBtnObj()
+            except Exception:
+                break
             rwid.append(ele.get_attribute("href").split("'")[1])
             print(rwid)
+            time.sleep(5)
+            print("延时5s,准备点击开始反馈按钮")
+            print(ele)
+            #
             ele.click()
             # 反馈页面，进行反馈
-            time.sleep(2)
             driver.switch_to.default_content()
             frameSwitch(driver)
             driver.switch_to.frame(frame.rwfkfkfkPageFrameObj())
+            print("当前页面为："+driver.current_url)
             page.sfsjssObj("n").click()
             page.sfwflxObj("n").click()
             page.sfjbphObj("y").click()
@@ -47,9 +55,21 @@ def rwfkAction(driver, rwbh):
             assert "成功" in message
             #  分配成功提示信息，点确定
             page.fkMessageBtnObj().click()
+            time.sleep(5)
+            print("延时10s,准备切换到fkfk页面")
             driver.switch_to.default_content()
             frameSwitch(driver)
             driver.switch_to.frame(frame.rwfkfkPageFrameObj())
+            print("当次反馈完成，切换到fkfk页面")
+            print("当前页面为：" + driver.current_url)
+            try:
+                while "Loading" in page.tjMessageObj().get_attribute('innerText'):
+                    time.sleep(1)
+                    print("请稍后······")
+            except:
+                print("加载完成")
+                pass
+
         return rwid
 
     except Exception as e:

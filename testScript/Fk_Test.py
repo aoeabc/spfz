@@ -19,13 +19,13 @@ def test():
         # TreeAction.getThirdTree(driver, '任务分配')
         # rwfpAction(driver, "任务批次编号6", "市局用户")
         # TreeAction.getThirdTree(driver, '任务反馈')
-        # rwfkAction(driver, "测试1005")
+        #　rwfkAction(driver, "测试1005")
         # TreeAction.getThirdTree(driver, '反馈结果复核')
         # rwfkfhAction(driver, '6e6c9c27ea904066a9bb3b158b854972', "不同意")
         # TreeAction.getThirdTree(driver, '应对结果调整')
-        rwfktzAction(driver, narid='91440300MA5DEJ014X')  #  返回任务id
-        TreeAction.getThirdTree(driver, '应对结果调整审批')
-        rwfktzspAction(driver, nsrid='91440300MA5DEJ014X')
+        # nsrid = rwfktzAction(driver)  #  返回任务id
+        # TreeAction.getThirdTree(driver, '应对结果调整审批')
+        # rwfktzspAction(driver, nsrid)
 
 
     except Exception as e:

@@ -21,13 +21,21 @@ class FkrwfkfhPage:
         except Exception as e:
             raise e
 
-    def fkfhBtnObj(self, rwid):
+    def fkfhBtnObj(self, rwid = None):
         # 复核按钮
-        try:
-            elementObj = getElement(self.driver, "xpath", "//a[contains(@href,\'"+rwid+"\')]")
-            return elementObj
-        except Exception as e:
-            raise
+        if rwid != None:
+            try:
+                elementObj = getElement(self.driver, "xpath", "//a[contains(@href,\'"+rwid+"\')]")
+                return elementObj
+            except Exception as e:
+                raise
+        else:
+            try:
+                elementObj = getElement(self.driver, "xpath", "//a[contains(@href,'javascript:doSp')]")
+                return elementObj
+            except Exception as e:
+                raise
+
 
     def fkfhjgObj(self, tag = None):
         # 反馈复核结果,同意或者不同意

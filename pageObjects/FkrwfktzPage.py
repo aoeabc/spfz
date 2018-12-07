@@ -28,6 +28,7 @@ class FkrwfktzPage:
                 return elementObj
             except Exception as e:
                 raise e
+
     def nsrsbhObj(self):
         # 调整页面，获取纳税人识别号
         try:
