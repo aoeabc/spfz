@@ -17,8 +17,19 @@ def dataDriverFunc():
         successfulCase = 0
         #   需要执行的用例个数
         isRunCase = 0
-        for i in isRun[1:]:
-            caseName =
+        # idx从0开始计数
+        for idx, i in enumerate(isRun[1:]):
+            #  判断是否执行
+            if i.lower()=="y":
+                isRunCase += 1
+                #   获取用例表中，执用例步骤的sheet名
+                stepSheetName = caseSheet.get_cell_value(row=idx+1,col=case_funcname )
+
+
+                #   实例化sheet名称
+                caseStepObj = ParserExcel(sheet_name=stepSheetName)
+                stepNum = caseStepObj.get_lines()
+                print(stepNum)
 
     except Exception as e:
         raise e
