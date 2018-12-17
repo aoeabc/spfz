@@ -38,7 +38,7 @@ def close_browser(* arg):
 def sleep(sleepSeconds, * arg):
     #  延时等到
     try:
-        sleep(int(sleepSeconds))
+        time.sleep(int(str(sleepSeconds)[0:1]))
     except Exception as e:
         raise e
 

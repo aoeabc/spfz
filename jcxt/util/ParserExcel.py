@@ -6,24 +6,19 @@ from conf.VarConfig import *
 
 class ParserExcel:
 
-	def __init__(self,file_name=None,sheet_name=None):
+	def __init__(self,sheet_name,file_name=None):
+		self.sheet_name = sheet_name
 		if file_name:
 			self.file_name = file_name
 		else:
 			self.file_name = dateFilePath
-		if sheet_name:
-			self.sheet_name = sheet_name
-		else:
-			self.sheet_id = 0
+
 		self.data = self.get_data()
 
 	#获取sheets的内容
 	def get_data(self):
 		data = xlrd.open_workbook(self.file_name)
-		if self.sheet_name:
-			tables = data.sheet_by_name(self.sheet_name)
-		else:
-			tables = data.sheets()[self.sheet_id]
+		tables = data.sheet_by_name(self.sheet_name)
 		return tables
 
 	#获取单元格的行数
@@ -43,7 +38,7 @@ class ParserExcel:
 		'''
 		read_data = xlrd.open_workbook(self.file_name)
 		write_data = copy(read_data)
-		sheet_data = write_data.get_sheet(0)
+		sheet_data=write_data.get_sheet(write_data.sheet_index(self.sheet_name))
 		sheet_data.write(row,col,value)
 		write_data.save(self.file_name)
 
@@ -55,7 +50,7 @@ class ParserExcel:
 		'''
 		read_data = xlrd.open_workbook(self.file_name)
 		write_data = copy(read_data)
-		sheet_data = write_data.get_sheet(0)
+		sheet_data = write_data.get_sheet(write_data.sheet_index(self.sheet_name))
 		sheet_data.write(row,col,str(getCurrentTime()))
 		write_data.save(self.file_name)
 
@@ -92,7 +87,4 @@ class ParserExcel:
 
 if __name__ == '__main__':
 	opers = ParserExcel(sheet_name="用例登录")
-	print(opers.get_cols_data(col_id = to_tree_func_name))
-	print(opers.get_row_values(2))
-	print(opers.get_row_num("任务下发"))
-	print(opers.get_rows_data("任务下发"))
+	opers.write_value(10,10,"111111")
