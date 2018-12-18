@@ -4,11 +4,13 @@ from util.ParserExcel import ParserExcel
 from conf.VarConfig import *
 from testScripts.GetDataInSheet import getDataInSheet
 from testScripts.WriteTestResult import writeTestResult
+from util.Log import *
 import time
 import traceback
 
 def dataLoginToTree(keyName):
     try:
+        logging.info(u"开始进入'%s'页面"%keyName)
         #  实例化登录步骤sheet页面
         sheetObj = ParserExcel(sheet_name="登录步骤")
         sheetCaseObj = ParserExcel(sheet_name="用例登录")
@@ -36,12 +38,12 @@ def dataLoginToTree(keyName):
                 tmpStr += "u'"+operateValue+"'" if operateValue else ""
             #   拼接关键字，
             runStr = keyWord+"("+tmpStr+")"
-            print(runStr)
+            logging.info(u"开始执行步骤命令：'%s'" %runStr )
             try:
                 #  将字符串转化成有效表达式
                 eval(runStr)
             except Exception as e:
-                print(u"执行步骤'%s'发生异常" % stepRow[step_message])
+                logging.info(u"执行步骤'%s'发生异常" % stepRow[step_message])
                 capturePic = capture_screen()
                 errorInfo = traceback.format_exc()
                 writeTestResult(sheetName="登录步骤",
@@ -52,26 +54,26 @@ def dataLoginToTree(keyName):
                                 PicPath=capturePic)
             else:
                 successfulSteps += 1
-                print(u"执行步骤'%s'成功" % stepRow[step_message])
+                logging.info(u"执行步骤'%s'成功" % stepRow[step_message])
                 writeTestResult(sheetName="登录步骤",
                                 rowNo=index,
                                 ColsNo="testStep",
                                 testResult="pass")
         if successfulSteps == stepNums - 1:
-            print(u"登录成功并进入%s页面" %keyName)
+            logging.info(u"登录成功并进入%s页面" %keyName)
             writeTestResult(sheetName="用例登录",
                             rowNo=sheetCaseObj.get_row_num(keyName),
                             ColsNo="loginStep",
                             testResult="pass")
         else:
-            print(u"进入%s页面失败" % keyName)
+            logging.info(u"进入%s页面失败" % keyName)
             writeTestResult(sheetName="用例登录",
                             rowNo=sheetCaseObj.get_row_num(keyName),
                             ColsNo="loginStep",
                             testResult="fail")
 
     except Exception as e:
-        raise e
+        logging.debug(u"程序执行异常\n%s " % traceback.print_exc())
 
 if __name__ == '__main__':
     dataLoginToTree("任务定义")
