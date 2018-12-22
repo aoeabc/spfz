@@ -5,7 +5,7 @@ from conf.VarConfig import parentDirPath
 
 # 读取日志配置文件
 logging.config.fileConfig(parentDirPath + u"\conf\Logger.conf")
-logger = logging.getLogger("example02")
+logger = logging.getLogger("example01")
 
 def debug(message):
     logger.debug(message)

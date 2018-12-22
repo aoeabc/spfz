@@ -11,7 +11,7 @@ pageElementLocatorPath = parentDirPath + u"\\conf\\PageElementLocator.ini"
 
 # -----------------------重点监控纳税人手动出库----------------
 # 重点监控纳税人手动出库模块测试文档
-zdjkdateFilePath = parentDirPath + u"\\testData\\test_data.xlsx"
+zdjkdateFilePath = parentDirPath + u"\\conf\\test_data.xlsx"
 
 # testdata.xls文档中每列对应的序列,从0 开始计数，
 zdjk_funcname =1
@@ -27,7 +27,7 @@ zdjk_result_parameter = 10
 
 
 # -----------------------风险管理系统----------------
-dateFilePath = parentDirPath + "\\conf\\fk_data.xls"
+dateFilePath = parentDirPath + "\\testData\\fk_data.xls"
 
 #风控文档fk_data.xlsx文档中，主表每列对应的序列,从0 开始计数，
 case_funcname =1

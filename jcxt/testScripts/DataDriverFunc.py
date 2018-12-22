@@ -6,6 +6,7 @@ from testScripts.WriteTestResult import writeTestResult
 from testScripts.DataLoginToTree import dataLoginToTree
 from testScripts.GetDataInSheet import getDataInSheet
 from util.Log import *
+from testScripts.ExceptionCloseBrowser import *
 import time
 import traceback
 import sys
@@ -26,7 +27,7 @@ def dataDriverFunc():
             if i.lower()=="y":
                 isRunCase += 1
                 #   获取用例表中，执用例步骤的sheet名
-                stepSheetName = caseSheet.get_cell_value(row=idx+1,col=case_funcname )
+                stepSheetName = caseSheet.get_cell_value(row=idx+1,col=case_funcname)
                 logging.info(u"开始执行测试用例'%s'" %stepSheetName)
                 #    登录系统并进入测试页面
                 dataLoginToTree(stepSheetName)
@@ -70,6 +71,9 @@ def dataDriverFunc():
                                         testResult="faild",
                                         errorMes=str(errorInfo),
                                         PicPath=capturePic)
+                        #  用例执行过程中发生异常时，关掉浏览器，进入下一个用例。
+                        exceptionCloseBroser()
+                        break
                     else:
                         successfulStep += 1
                         logging.info(u"执行步骤'%s'成功" % stepRow[step_message])
@@ -81,22 +85,22 @@ def dataDriverFunc():
                     successfulCase += 1
                     logging.info(u"%s功能执行成功" %stepSheetName)
                     writeTestResult(sheetName="测试用例",
-                                    rowNo=caseSheet.get_row_num(stepSheetName),
+                                    rowNo=idx+1,
                                     ColsNo="testCase",
                                     testResult="pass")
                 else:
                     logging.info(u"进入%s页面失败" % stepSheetName)
                     writeTestResult(sheetName="测试用例",
-                                    rowNo=caseSheet.get_row_num(stepSheetName),
+                                    rowNo=idx+1,
                                     ColsNo="testCase",
                                     testResult="fail")
             else:
                 writeTestResult(sheetName="测试用例",
-                                rowNo=caseSheet.get_row_num(stepSheetName),
+                                rowNo=idx+1,
                                 ColsNo="testCase",
                                 testResult="")
 
-        logging.info(u"共%d条用例，执行%d条，成功执行%d条" %(len(isRun,)-1),isRunCase,successfulCase)
+        logging.info(u"共%s条用例，执行%s条，成功执行%s条" %(len(isRun)-1,isRunCase,successfulCase))
 
     except Exception as e:
         logging.debug(u"程序执行异常\n%s " % traceback.print_exc())

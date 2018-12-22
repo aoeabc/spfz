@@ -24,6 +24,7 @@ def visit_url(url, * arg):
         driver.get(url)
         handles = driver.window_handles
         driver.switch_to.window(handles[0])
+
     except Exception as e:
         raise e
 
@@ -31,7 +32,7 @@ def close_browser(* arg):
     #  关闭浏览器
     global driver
     try:
-        driver.qiut()
+        driver.quit()
     except Exception as e:
         raise e
 
@@ -135,3 +136,8 @@ def waitvisibilityOfElementLocated(locationType, locationExpression,* arg):
         waitUtil.visibilityOfElementLocated(locationType, locationExpression)
     except Exception as e:
         raise e
+
+if __name__=="__main__":
+    open_browser()
+    visit_url("http://86.100.16.15:8001")
+    assert_string_in_pagesource("测试测绘测试")

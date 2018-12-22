@@ -10,7 +10,7 @@ import traceback
 
 def dataLoginToTree(keyName):
     try:
-        logging.info(u"开始进入'%s'页面"%keyName)
+        logging.info(u"开始进入%s页面"%keyName)
         #  实例化登录步骤sheet页面
         sheetObj = ParserExcel(sheet_name="登录步骤")
         sheetCaseObj = ParserExcel(sheet_name="用例登录")

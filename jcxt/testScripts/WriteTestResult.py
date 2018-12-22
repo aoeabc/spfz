@@ -7,7 +7,7 @@ import sys
 
 
 def writeTestResult(sheetName, rowNo, ColsNo, testResult, errorMes=None, PicPath=None):
-    sheetObj = ParserExcel(dateFilePath, sheet_name=sheetName)
+    sheetObj = ParserExcel(sheet_name=sheetName)
     colsDict={
         "testCase":[case_time,case_result],
         "testStep":[step_time,step_result],
@@ -31,3 +31,9 @@ def writeTestResult(sheetName, rowNo, ColsNo, testResult, errorMes=None, PicPath
     except Exception as e:
         print("写入数据时发生错误")
         print(traceback.print_exc())
+
+if __name__ == '__main__':
+    writeTestResult(sheetName="用例登录",
+                    rowNo=10,
+                    ColsNo="loginStep",
+                    testResult="pass")

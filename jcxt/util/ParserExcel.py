@@ -86,5 +86,6 @@ class ParserExcel:
 
 
 if __name__ == '__main__':
-	opers = ParserExcel(sheet_name="用例登录")
-	opers.write_value(10,10,"111111")
+    opers = ParserExcel(sheet_name="用例登录")
+    s='任务分配'
+    print(opers.get_row_num(s))
